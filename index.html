@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>DASHBOARD AMBATRON</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#050b18">
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <div>
+            <h1>AMBATRON</h1>
+            <p>TIM 8 ☠️</p>
+        </div>
+        <div id="connection">● DISCONNECTED</div>
+    </header>
+
+    <section class="connect">
+        <input type="text" id="espIP" placeholder="Masukkan IP ESP32">
+        <button onclick="connectRobot()">CONNECT</button>
+    </section>
+
+    <main class="dashboard">
+        
+<section class="card">
+    <h2>CONTROL MOVEMENT</h2>
+
+    <div class="controls">
+        <button class="move-btn" data-direction="W">▲</button>
+
+        <div class="middle-controls">
+            <button class="move-btn" data-direction="A">◀</button>
+            <button class="move-btn" data-direction="D">▶</button>
+        </div>
+
+        <button class="move-btn" data-direction="S">▼</button>
+    </div>
+
+    <h3>Motor Speed</h3>
+
+    <input type="range" min="0" max="255" value="150"
+        id="speed" oninput="setSpeed(this.value)">
+
+    <p id="speedValue">150 / 255</p>
+
+    <div class="panel-divider"></div>
+
+    <h2>SYSTEM STATUS</h2>
+
+    <div class="status-grid">
+        <p>Motor: <b id="motor">STOP</b></p>
+        <p>Micro SD: <b id="sd">--</b></p>
+        <p>Sensor Suhu: <b id="mlx">--</b></p>
+        <p>RTC: <b id="rtc">--</b></p>
+    </div>
+
+    <p class="note">Penyimpanan data Micro SD setiap 10 detik.</p>
+</section>
+
+
+        <!-- SERVO -->
+        <section class="card">
+            <h2>SERVO CONTROL</h2>
+
+            <h3>Servo Capit</h3>
+            <input type="range" min="0" max="180" value="90"
+                id="capit" oninput="setServo('capit',this.value)">
+            <p id="capitValue">120°</p>
+
+            <h3>Servo Naik / Turun</h3>
+            <input type="range" min="0" max="180" value="90"
+                id="lift" oninput="setServo('lift',this.value)">
+            <p id="liftValue">130°</p>
+        </section>
+
+        <!-- SUHU -->
+
+<section class="card">
+    <h2>TEMPERATURE MONITOR</h2>
+
+    <div class="temperature">
+        <span id="temperature">--.-</span> °C
+    </div>
+
+    <p>Suhu Objek</p>
+
+    <h3>Suhu Lingkungan</h3>
+    <h2 id="ambient">--.- °C</h2>
+
+    <div class="panel-divider"></div>
+
+    <h2>REAL TIME CLOCK</h2>
+
+    <div class="clock" id="clock">--:--:--</div>
+    <p id="date">Menunggu RTC</p>
+</section>
+
+    </main>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

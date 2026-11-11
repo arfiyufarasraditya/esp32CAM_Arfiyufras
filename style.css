@@ -1,0 +1,334 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #050b18;
+    color: white;
+    min-height: 100vh;
+}
+
+.container {
+    width: 95%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 25px 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+header h1 {
+    color: #00d9ff;
+    font-size: 32px;
+    text-shadow: 0 0 15px #00d9ff;
+    letter-spacing: 3px;
+}
+
+header p {
+    color: #8ca6c9;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-top: 5px;
+}
+
+#connection {
+    color: #ff4545;
+    font-weight: bold;
+}
+
+.connect {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+input[type="text"] {
+    flex: 1;
+    min-width: 0;
+    padding: 13px;
+    border: 1px solid #087bba;
+    background: #0b1830;
+    color: white;
+    border-radius: 8px;
+}
+
+button {
+    border: 1px solid #00d9ff;
+    background: #092849;
+    color: #00d9ff;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+button:active {
+    background: #00d9ff;
+    color: #00101e;
+    box-shadow: 0 0 20px #00d9ff;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: linear-gradient(145deg, #101e36, #091426);
+    border: 1px solid #075b91;
+    border-radius: 15px;
+    padding: 22px;
+    box-shadow: 0 0 15px #003b6040;
+}
+
+.card h2 {
+    color: #00d9ff;
+    font-size: 18px;
+    margin-bottom: 22px;
+}
+
+.card h3 {
+    color: #b7d8ef;
+    font-size: 14px;
+    margin: 18px 0 10px;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.middle-controls {
+    display: flex;
+    gap: 15px;
+}
+
+.middle-controls button:first-child {
+    transform: translateX(-45px);
+}
+
+.middle-controls button:last-child {
+    transform: translateX(45px);    
+}
+
+.move-btn {
+    width: 130px;
+    height: 115px;
+    font-size: 35px;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    border-radius: 15px;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: #00d9ff;
+    cursor: pointer;
+}
+
+.card p {
+    color: #9eb9d4;
+    margin-top: 8px;
+}
+
+.temperature {
+    font-size: 45px;
+    color: #00e5ff;
+    font-weight: bold;
+    text-shadow: 0 0 15px #00d9ff;
+}
+
+.clock {
+    font-size: 35px;
+    color: #00e5ff;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.note {
+    font-size: 12px;
+    color: #718ba9 !important;
+    margin-top: 20px !important;
+}
+
+@media (max-width: 700px) {
+
+    .container {
+        width: 92%;
+        padding: 18px 0;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .connect {
+        flex-wrap: wrap;
+    }
+
+    .connect button {
+        width: 100%;
+    }
+
+    .temperature {
+        font-size: 38px;
+    }
+
+    .clock {
+        font-size: 30px;
+    }
+}
+
+/* HALAMAN TETAP */
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    position: fixed;
+    touch-action: none;
+    overscroll-behavior: none;
+}
+
+body {
+    height: 100dvh;
+}
+
+.container {
+    width: 100%;
+    height: 100dvh;
+    max-width: none;
+    padding: 10px;
+    overflow: hidden;
+}
+
+/* DASHBOARD LANDSCAPE */
+.dashboard {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.card {
+    padding: 12px;
+}
+
+/* SLIDER TETAP BISA DIGESER */
+input[type="range"] {
+    touch-action: pan-x;
+}
+
+/* TOMBOL TIDAK MEMUNCULKAN MENU TEKAN LAMA */
+button {
+    touch-action: none;
+    -webkit-touch-callout: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* PETUNJUK JIKA HP MASIH PORTRAIT */
+@media (orientation: portrait) {
+    .container {
+        display: none;
+    }
+
+    body::after {
+        content: "PUTAR HP KE POSISI LANDSCAPE ↻";
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #050b18;
+        color: #00d9ff;
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        padding: 20px;
+    }
+}
+
+
+/* ===== PERBAIKAN LAYOUT LANDSCAPE HP ===== */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100dvh;
+    max-width: none;
+    padding: 8px;
+    overflow: hidden;
+}
+
+/* Header lebih ringkas */
+header {
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+/* Kolom koneksi */
+.connect {
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+
+/* PEMBAGIAN PANEL BARU */
+
+.panel-divider {
+    height: 1px;
+    background: #075b91;
+    margin: 15px 0;
+}
+
+.status-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+}
+
+.status-grid p {
+    font-size: 12px;
+    color: #9eb9d4;
+}
+
+.status-grid b {
+    color: #00d9ff;
+}
+
+.note {
+    font-size: 10px;
+    margin-top: 10px !important;
+}
+
+.temperature {
+    margin-top: 5px;
+}
+
+.clock {
+    margin: 8px 0;
+}
