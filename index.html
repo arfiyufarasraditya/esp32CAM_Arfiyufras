@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CAMVISION | Offline Camera Control</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">LOCAL NETWORK • OFFLINE MODE</p>
+        <h1>CAM<span>VISION</span></h1>
+        <p class="subtitle">ESP32-CAM CONTROL CENTER</p>
+      </div>
+      <div class="status"><i id="statusDot"></i><span id="statusText">NOT CONNECTED</span></div>
+    </header>
+
+    <section class="panel">
+      <div class="section-head">
+        <div><p class="eyebrow">VIDEO FEED</p><h2>Live camera</h2></div>
+        <span class="tag">MJPEG STREAM</span>
+      </div>
+      <div class="video-wrap">
+        <img id="cameraFeed" alt="Live camera stream akan tampil di sini">
+        <div id="placeholder" class="placeholder">
+          <div class="camera-icon">◉</div>
+          <strong>Menunggu kamera...</strong>
+          <small>Masukkan IP ESP32-CAM lalu tekan HUBUNGKAN</small>
+        </div>
+      </div>
+      <div class="connection-row">
+        <label for="cameraIp">IP ESP32-CAM</label>
+        <input id="cameraIp" type="text" inputmode="decimal" placeholder="Contoh: 192.168.43.120">
+        <button id="connectBtn">HUBUNGKAN</button>
+      </div>
+      <p class="hint">IP kamera terlihat di Serial Monitor Arduino IDE setelah ESP32-CAM tersambung ke hotspot.</p>
+    </section>
+
+    <section class="panel controls">
+      <div class="section-head">
+        <div><p class="eyebrow">HARDWARE CONTROL</p><h2>Flash LED</h2></div>
+        <span id="flashState" class="tag">OFF</span>
+      </div>
+      <div class="button-row">
+        <button class="flash-on" id="flashOn">⚡ FLASH ON</button>
+        <button class="flash-off" id="flashOff">FLASH OFF</button>
+      </div>
+      <p id="message" class="hint">Hubungkan kamera untuk mengaktifkan kontrol flash.</p>
+    </section>
+    <footer>CAMVISION OFFLINE · Berjalan melalui WiFi lokal, tanpa internet</footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
