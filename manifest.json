@@ -1,0 +1,26 @@
+{
+  "id": "/esp32CAM_Arfiyufras/",
+  "name": "CAMVISION ESP32-CAM",
+  "short_name": "CAMVISION",
+  "description": "ESP32-CAM Control Center",
+  "start_url": "/esp32CAM_Arfiyufras/",
+  "scope": "/esp32CAM_Arfiyufras/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#06101e",
+  "theme_color": "#06101e",
+  "icons": [
+    {
+      "src": "/esp32CAM_Arfiyufras/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/esp32CAM_Arfiyufras/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
