@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CAMVISION | Offline Camera Control</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#06101e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">LOCAL NETWORK • OFFLINE MODE</p>
+        <h1>CAM<span>VISION</span></h1>
+        <p class="subtitle">ESP32-CAM CONTROL CENTER</p>
+      </div>
+      <div class="status"><i id="statusDot"></i><span id="statusText">NOT CONNECTED</span></div>
+    </header>
+
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">VIDEO FEED</p>
+          <h2>Live camera</h2>
+        </div>
+        <div class="head-actions">
+          <span class="tag">MJPEG STREAM</span>
+          <button class="small-btn" id="openSettings" type="button">⚙ PENGATURAN</button>
+        </div>
+      </div>
+
+      <div class="video-wrap" id="videoWrap">
+        <img id="cameraFeed" alt="Live camera stream akan tampil di sini">
+        <div id="placeholder" class="placeholder">
+          <div class="camera-icon">◉</div>
+          <strong>Kamera tidak terhubung</strong>
+          <small>Masukkan IP ESP32-CAM lalu tekan HUBUNGKAN</small>
+        </div>
+      </div>
+
+      <div class="connection-row">
+        <label for="cameraIp">IP ESP32-CAM</label>
+        <input id="cameraIp" type="text" inputmode="decimal" placeholder="Contoh: 192.168.43.120">
+        <button id="connectBtn" type="button">HUBUNGKAN</button>
+      </div>
+      <p class="hint" id="message">Masukkan IP kamera yang terlihat di Serial Monitor Arduino IDE.</p>
+    </section>
+
+    <section class="panel controls">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">HARDWARE CONTROL</p>
+          <h2>Flash LED</h2>
+        </div>
+        <span id="flashState" class="tag">OFF</span>
+      </div>
+      <div class="button-row">
+        <button class="flash-on" id="flashOn" type="button">⚡ FLASH ON</button>
+        <button class="flash-off" id="flashOff" type="button">FLASH OFF</button>
+      </div>
+    </section>
+
+    <footer>CAMVISION OFFLINE · KONTROL MELALUI JARINGAN WIFI LOKAL</footer>
+  </main>
+
+  <div class="modal-backdrop" id="settingsBackdrop" hidden>
+    <section class="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="modal-head">
+        <div>
+          <h2 id="settingsTitle">Pengaturan</h2>
+          <p id="settingsCameraIp">Kamera belum terhubung</p>
+        </div>
+        <button class="close-btn" id="closeSettings" type="button" aria-label="Tutup">×</button>
+      </div>
+
+      <div class="settings-grid">
+        <label class="setting-card">
+          <span>Resolusi</span>
+          <select id="resolution">
+            <option value="QVGA">QVGA 320×240</option>
+            <option value="VGA">VGA 640×480</option>
+            <option value="SVGA">SVGA 800×600</option>
+            <option value="XGA">XGA 1024×768</option>
+            <option value="SXGA">SXGA 1280×1024</option>
+            <option value="UXGA">UXGA 1600×1200</option>
+          </select>
+        </label>
+
+        <label class="setting-card">
+          <span>Putaran gambar</span>
+          <select id="rotation">
+            <option value="0">0°</option>
+            <option value="90">90°</option>
+            <option value="180" selected>180°</option>
+            <option value="270">270°</option>
+          </select>
+        </label>
+
+        <label class="setting-card range-card">
+          <span>Ukuran video <b id="videoSizeValue">100%</b></span>
+          <input id="videoSize" type="range" min="50" max="100" value="100">
+        </label>
+
+        <label class="setting-card range-card">
+          <span>Kualitas (kecil = tajam) <b id="qualityValue">14</b></span>
+          <input id="quality" type="range" min="4" max="30" value="14">
+        </label>
+
+        <label class="setting-card range-card">
+          <span>Kecerahan <b id="brightnessValue">0</b></span>
+          <input id="brightness" type="range" min="-2" max="2" value="0" step="1">
+        </label>
+
+        <label class="setting-card range-card">
+          <span>Kontras <b id="contrastValue">0</b></span>
+          <input id="contrast" type="range" min="-2" max="2" value="0" step="1">
+        </label>
+
+        <label class="setting-card range-card">
+          <span>Saturasi warna <b id="saturationValue">0</b></span>
+          <input id="saturation" type="range" min="-2" max="2" value="0" step="1">
+        </label>
+
+        <div class="setting-card toggle-card">
+          <span>Balik atas-bawah</span>
+          <label class="switch"><input id="vflip" type="checkbox"><span></span></label>
+        </div>
+
+        <div class="setting-card toggle-card">
+          <span>Balik kiri-kanan</span>
+          <label class="switch"><input id="hmirror" type="checkbox" checked><span></span></label>
+        </div>
+
+        <div class="setting-card toggle-card">
+          <span>Layar tetap menyala</span>
+          <label class="switch"><input id="keepAwake" type="checkbox"><span></span></label>
+        </div>
+
+        <button class="action-btn primary" id="reloadVideo" type="button">Muat ulang video</button>
+        <button class="action-btn" id="resetSettings" type="button">Kembalikan bawaan</button>
+      </div>
+      <p class="settings-note" id="settingsMessage">Pengaturan kamera akan dikirim ke ESP32-CAM.</p>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js")
+          .then(() => console.log("CAMVISION Offline Ready"))
+          .catch(error => console.log("Service Worker Error:", error));
+      });
+    }
+  </script>
+</body>
+</html>
